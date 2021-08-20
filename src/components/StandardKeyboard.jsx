@@ -8,6 +8,15 @@ export default class StandardKeyboard extends Component {
 
         return (
             <div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
                 <div className="keyboard-row">
                     <Key Tag="1" keyLog="1" math="number" keyClick={keyClick} />
                     <Key Tag="2" keyLog="2" math="number" keyClick={keyClick} />

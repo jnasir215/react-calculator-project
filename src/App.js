@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+// import { useSelector } from 'react-redux';
 // import Math from 'mathjs';
+import Toggle from './components/Toggle';
 import Screen from './components/Screen';
+import StandardKeyboard from './components/StandardKeyboard';
 import ScientificKeyboard from './components/ScientificKeyboard';
 import './App.css';
+import ToggleLabel from './components/ToggleLabel';
 
 const math = require('mathjs');
 const he = require('he'); // library for html entities encoding/decoding
@@ -14,6 +18,7 @@ export default class App extends Component {
     this.state = {
       result: "0",
       log: '',
+      isStandard: true,
       clickedEquals: false,
       ans: "0",
     };
@@ -53,6 +58,12 @@ export default class App extends Component {
     });
   }
 
+  toggleHandler(Tag) {
+    const isStandard = this.state.isStandard;
+    if (isStandard) this.setState({ isStandard: false });
+    else this.setState({ isStandard: true });
+  }
+
   keyClick(keyLog, math) {
     console.log(math);
     console.log(keyLog);
@@ -75,7 +86,7 @@ export default class App extends Component {
     }
 
       // if any of the following math commands is passed into function keyClick
-    if (math.match(/trig|log|number|comma|prnths|ans|sqrt|exponent/)) {
+    if (math.match(/trig|log|number|decimal|comma|prnths|ans|sqrt|exponent/)) {
       if (clickedEquals) this.setState({ log: keyLog, clickedEquals: false });
       else this.setState({ log: currentLog + keyLog });
     }
@@ -92,7 +103,6 @@ export default class App extends Component {
     const divide = he.decode('&divide;');  // assigning divide identifier to variable
     const sqrt = he.decode('&radic;');     // assigning radical identifier to variable
     const sqrtReg = new RegExp(sqrt, 'g'); // assigning sqRoot identifier to variable
-    //const equals = he.decode('&equals;');
 
     // change log so it's understanable to mathjs eval() method
     const newLog = currentLog.replace(times, '*')
@@ -102,7 +112,6 @@ export default class App extends Component {
     .replace(/log/g, 'log10')
     .replace(/ln/g, 'log')
     .replace(sqrtReg, 'sqrt');
-    //.replace(equals, '=');
 
     let result = math.evaluate(newLog);
     let finalResult;
@@ -124,11 +133,13 @@ export default class App extends Component {
   }
 
     // Calculator User Interface
+    // <ToggleLabel Tag="Standard Calculator" onclick={this.toggleHandler} />
+    // <ToggleLabel Tag="Scientific Calculator" onclick={this.toggleHandler} />
   render() {
     return (
       <div className="calc-container">
-        <p className="description" >React Calculator App <br/><br/>
-          Scientific Mode</p>
+        <p className="description" align="center">React Calculator App </p>
+        <Toggle />
         <Screen
           log={this.state.log}
           result={this.state.result}

@@ -61,8 +61,16 @@ background: #995b7a;
 }
 
 .description {
-  font-size: 1.5em;
-  font-family: 'Orbitron';
+  font-size: 1.7em;
+  font-family: Tahoma;
+  margin: 8px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.toggle-label {
+  font-size: 1.2em;
+  font-family: Tahoma;
   margin: 8px;
   margin-bottom: 12px;
   color: #fff;
